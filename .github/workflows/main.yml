@@ -40,3 +40,15 @@ jobs:
           ipfs swarm peers
           ipfs add Elyes.war
         shell: alpine.sh --root {0}
+         - name: Sauvegarde fichier war sur IPFS
+        run: |
+          ls -la 
+          ipfs swarm peers
+          ipfs add Elyes.war > ipfs_key.txt
+        shell: alpine.sh --root {0}
+      - name: Notification Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          ipfs_key=$(cat ipfs_key.txt | awk '{print $2}')
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Elyes: Le workfl-owo IPFS est terminé. Clé IPFS : $ipfs_key\"}" $DISCORD_WEBHOOK
