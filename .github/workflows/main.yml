@@ -38,12 +38,6 @@ jobs:
         run: |
           ls -la 
           ipfs swarm peers
-          ipfs add Elyes.war
-        shell: alpine.sh --root {0}
-         - name: Sauvegarde fichier war sur IPFS
-        run: |
-          ls -la 
-          ipfs swarm peers
           ipfs add Elyes.war > ipfs_key.txt
         shell: alpine.sh --root {0}
       - name: Notification Discord
