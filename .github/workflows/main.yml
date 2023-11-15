@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: |
-          jar cvf Elyes.war *
+          jar cvf ElyesAdjal.war *
       - uses: jirutka/setup-alpine@v1
         with:
           branch: v3.15
@@ -39,5 +39,5 @@ jobs:
         run: |
           ls -la 
           ipfs swarm peers
-          ipfs add Elyes.war
+          ipfs add ElyesAdjal.war
         shell: alpine.sh --root {0}
