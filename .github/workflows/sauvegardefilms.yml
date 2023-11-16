@@ -81,7 +81,7 @@ jobs:
         env:
           MYSQL_PWD: ${{ secrets.MYSQLDUMP_PASSWORD }}
         run: |
-          mysqldump -ucnam -h127.0.0.1 -P3307 --password="${MYSQL_PWD}" films > save_agathe.sql
+          mysqldump -ucnam -h127.0.0.1 -P3307 --password="${MYSQL_PWD}" films > save_elyes.sql
           if [ $? -ne 0 ]; then
             echo "Failed to dump MySQL"
             exit 1
@@ -106,11 +106,11 @@ jobs:
         run: |
           ipfs daemon --init &
           sleep 10
-          ipfs add save_agathe.sql > ipfs_key.txt
+          ipfs add save_elyes.sql > ipfs_key.txt
 
       - name: Notification Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
           ipfs_key=$(cat ipfs_key.txt | awk '{print $2}')
-          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"SQL-Agathe: Le workfl-owo IPFS est terminé. Clé IPFS : $ipfs_key\"}" $DISCORD_WEBHOOK
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"SQL-ElyesTuto: Le workflow Elyes Tuto IPFS est terminé. Clé IPFS : $ipfs_key\"}" $DISCORD_WEBHOOK
